@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="false" scanPeriod="5 minutes">
+
+    <!--<property resource="application.yml"/>-->
+    <springProperty scope="context" name="logback_level" source="logback.level" defaultValue="INFO"/>
+    <springProperty scope="context" name="app.name" source="app.name" defaultValue="njmsc"/>
+    <springProperty scope="context" name="logback_rolling" source="logback.rolling" defaultValue="true"/>
+    <springProperty scope="context" name="logback_rolling_path" source="logback.rolling.path"
+                    defaultValue="/data/logs/acfCircuitBreaker"/>
+    <springProperty scope="context" name="logback_max_file_size" source="logback.max_file_size" defaultValue="128MB"/>
+
+    <property name="logback_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger %L --| %msg%n"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logback_rolling_path}/${app.name}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logback_rolling_path}/${app.name}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${logback_max_file_size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${logback_pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <!-- 将日志打印到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${logback_pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${logback_level}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+    <contextName>${app.name}</contextName>
+
+
+    <logger name="org.mybatis">
+        <level value="INFO"/>
+    </logger>
+    <logger name="mybatis.mapper">
+        <level value="INFO"/>
+    </logger>
+    <logger name="druid.sgl.Connection">
+        <level value="INFO"/>
+    </logger>
+    <logger name="druid.sgl.statement">
+        <level value="INFO"/>
+    </logger>
+    <logger name="druid.sgl.ResultSet">
+        <level value="INFO"/>
+    </logger>
+
+
+</configuration>

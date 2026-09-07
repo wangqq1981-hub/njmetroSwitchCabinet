@@ -1,0 +1,56 @@
+#实验室测试环境
+njmsc:
+  logback:
+    path: /data/logs/acfCircuitBreaker
+  data:
+    save: true
+    path: /data/datas
+  db:
+#    address: 10.10.22.176:3306/acf_circuit_breaker
+    address: 10.10.22.176:3306/osc
+    username: root
+    password: A123@bpg
+  redis:
+    ip: 10.10.22.166
+  analysis: 10.10.22.182
+
+# 定时任务相关配置
+scheduled:
+  task:
+    runable:
+      global: true
+      single:
+        ThermographyScheduled:
+          collectThermographyData: true
+
+# 日志
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+
+eureka:
+  instance:
+    hostname: 10.10.22.174
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+    ip-address: ${spring.cloud.client.ip-address}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://10.10.22.174:18761/eureka/
+
+analysis:
+  partial:
+    port: 12307
+
+picture:
+  port: 12500
+
+address:
+  server: 120.85.128.109
+
+

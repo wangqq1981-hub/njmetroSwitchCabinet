@@ -1,0 +1,33 @@
+[
+    {
+        "collectCode": "arrester",
+        "deviceCodes": "BPG_GF.KGG.GIS24.1",
+        "type": "serial",
+        "portName": "COMx",
+        "slaveId": 255
+    },
+    {
+        "collectCode": "cr",
+        "deviceCodes": "BPG_GF.KGG.GIS24.1",
+        "type": "serial",
+        "portName": "COM8",
+        "baudRate": 115200,
+        "slaveId": 1
+    },
+    {
+        "collectCode": "tempAndHumEnv",
+        "deviceCodes": "BPG_GF.KGG.GIS24.1",
+        "type": "serial",
+        "portName": "COMx",
+        "slaveId": 1
+    },
+    {
+        "collectCode": "pd",
+        "deviceCodes": "BPG_GF.KGG.GIS24.1",
+        "type": "rest",
+        "ip": "127.0.0.1",
+        "port": 6061,
+        "url": "/ultrasonic/data",
+        "sensorCode": "202302200101"
+    }
+]

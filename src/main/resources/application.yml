@@ -1,0 +1,121 @@
+# 服务名、端口配置
+app:
+  name: njmsc
+  code: njmsc
+
+
+server:
+  servlet:
+    context-path: /njmsc
+  port: 24500
+
+
+#日志    logback.rolling.path
+logback:
+  level: info
+  rolling:
+    path: ${njmsc.logback.path}
+  max_file_size: 128MB
+
+
+
+# 数据源配置
+spring:
+  profiles:
+    active: pro
+#    active: dev
+  application:
+    name: njmsc
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: ${njmsc.db.username}
+    password: ${njmsc.db.password}
+    url: jdbc:mysql://${njmsc.db.address}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    druid:
+      # 初始化大小，最小，最大，超时链接，空闲时间，生产时间，pscache
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # Redis 配置
+  redis:
+    # Redis 服务器地址
+    host: ${njmsc.redis.ip}
+    # 连接端口号
+    port: 6379
+    # 数据库索引（0 - 15）
+    database: 0
+    # 连接超时时间（毫秒）
+    timeout: 10000
+    # lettuce 参数
+    lettuce:
+      pool:
+        # 最大连接数(使用负值表示没有限制) 默认为 8
+        max-active: 10
+        # 最大阻塞等待时间(使用负值表示没有限制) 默认为 -1 ms
+        max-wait: -1
+        # 最大空闲连接 默认为 8
+        max-idle: 5
+        # 最小空闲连接 默认为 0
+  main:
+    allow-circular-references: true
+
+
+# mybatis 配置
+mybatis:
+  map-underscore-to-camel-case: true
+
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+swagger:
+  loginRegex: ^(${server.servlet.context-path}/user/login|${server.servlet.context-path}/token/wsAuth)$
+  apiRegex: ^(?!${server.servlet.context-path}/user/login|${server.servlet.context-path}/token/wsAuth).*$
+  enable: true
+  title: "ACF断路器swagger后台接口测试"
+  description: "本文档描述了ACF断路器后台项目中的接口定义"
+  version: 1.0
+  contact:
+    name: "huangxw"
+    url: ""
+    email: "huangxw@bpg.com"
+  license: "The Apache License"
+  license-url: "https://github.com/springfox/springfox/blob/master/LICENSE"
+  service-url: ""
+  base-package: "com.drsi"
+
+
+picture:
+  ip: ${address.server}
+  port: 19999
+
+address:
+  server: 10.10.22.174
+
+# 算法分析相关配置
+analysis:
+  host: 127.0.0.1
+  MachineProperties:
+    port: 32100
+    url: /MachineProperties
+
+iec104:
+  server:
+    bindHost: 0.0.0.0
