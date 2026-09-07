@@ -1,0 +1,46 @@
+#本地开发环境 windows工作站或本地
+njmsc:
+  logback:
+    path: D:\0.logs
+  data:
+    save: true
+    path: D:\0.logs
+  db:
+    address: 10.10.22.168:3306/nj_switch_cabinet
+    username: root
+    password: A123@bpg
+  redis:
+    ip: 10.10.22.166
+  analysis: 10.10.22.182
+
+# 定时任务相关配置
+scheduled:
+  task:
+    runable:
+      global: true
+      single:
+        AmtechArresterRtuScheduled:
+          collectAmtechArresterSerialData: false
+
+
+# 日志
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+
+eureka:
+  instance:
+    hostname: 10.10.22.174
+    lease-renewal-interval-in-seconds: 5
+    prefer-ip-address: true
+    #    ip-address: ${spring.cloud.client.ip-address}
+    instance-id: 10.10.22.174:${server.port}
+  client:
+    service-url:
+      defaultZone: http://10.10.22.174:18761/eureka/
+
+
