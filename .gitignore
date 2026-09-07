@@ -1,0 +1,20 @@
+# Build outputs
+target/
+work/
+*.class
+*.jar.bak
+
+# IDE
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep original vendor JARs out of accidental copies
+tools/*.jar.bak
